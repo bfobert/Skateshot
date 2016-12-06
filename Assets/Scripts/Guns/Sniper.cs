@@ -3,10 +3,14 @@ using System.Collections;
 
 public class Sniper : Gun {
 
-	float time = .21f;
-	float fireTime = .15f;
+	float time = 1.3f;
+	float fireTime = 1.2f;
 
 	void Start() {
+	}
+
+	void Update(){
+		time += Time.deltaTime;
 	}
 
 	public Sniper() {
@@ -17,11 +21,11 @@ public class Sniper : Gun {
 	public override void Shoot(){
 		Player p = player.GetComponent<Player> ();
 		int pAmmo = p.GetAmmo (gameObject.tag);
-		if (time > fireTime) {
-			if (pAmmo > 0) {
+		if (pAmmo > 0) {
+			if (time > fireTime) {
 				Vector3 origin = new Vector3 (.5f,
-					.5f,
-					0);
+					                 .5f,
+					                 0);
 				Ray ray = camera.ViewportPointToRay (origin);
 				RaycastHit hit;
 				if (Physics.Raycast (ray, out hit)) {
@@ -40,8 +44,10 @@ public class Sniper : Gun {
 				p.UpdateAmmoText (gameObject.tag);
 				Debug.Log ("ammo: " + pAmmo);
 			}
+		} else {
+			p.ResetGun ();
 		}
-		time += Time.deltaTime;
+
 	}
 }
 

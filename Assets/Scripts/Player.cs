@@ -49,6 +49,7 @@ public class Player : MonoBehaviour {
 		ammo.Add ("Pistol", 1);
 		ammo.Add ("MachineGun", 0);
 		ammo.Add ("Shotgun", 0);
+		ammo.Add ("Sniper", 0);
 	}
 
 	public void SetAmmo(Gun g, int ammoAmt){
@@ -181,6 +182,12 @@ public class Player : MonoBehaviour {
 		gameObject.transform.position = respawns [i].transform.position;
 		life = 100;
 		lifeText.text = ("Life: " + life);
+		ResetGun ();
+		}
+
+	public void ResetGun(){
+		gun = new Pistol ();
+		gun.SetOwner (bullet, playerGO, playerNum);
 		ammoText.text = ("Ammo: ∞");
 		foreach (GameObject gunModel in guns) {
 			if (gunModel.name.Equals ("Pistol")) {
@@ -189,8 +196,6 @@ public class Player : MonoBehaviour {
 				gunModel.SetActive (false);
 			}
 		}
-		gun = new Pistol ();
-		gun.SetOwner (bullet, playerGO, playerNum);
-		}
+	}
 	}
 		

@@ -48,25 +48,11 @@ abstract public class Gun : MonoBehaviour {
 			}
 	}
 
-	void OnTriggerEnter(Collider coll){
-		int i = 1;
-		while (i < 5){
-			if(coll.tag == "Player" + i){
-				GameObject playerGO = coll.gameObject;
-				Player p = playerGO.GetComponent<Player>();
-				p.SetAmmo (this, ammo);
-				p.UpdateAmmoText (gameObject.tag);
-				p.WeaponSwap(this);
-				StartCoroutine(Respawn ());
-			}
-			i++;
-		}
+	public int GetAmmo(){
+		return ammo;
 	}
 
-	public IEnumerator Respawn(){
-		BoxCollider coll = gameObject.GetComponent<BoxCollider> ();
-		coll.enabled = false;
-		yield return new WaitForSeconds (15);
-		coll.enabled = true;
+	public int GetTime(){
+		return respawnTime;
 	}
 }
